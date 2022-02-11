@@ -1,6 +1,7 @@
 package BuySunscreen.actions;
 
 import net.serenitybdd.core.pages.WebElementFacade;
+import net.serenitybdd.screenplay.targets.Target;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,10 +13,10 @@ import static BuySunscreen.UserInterface.Targets.SUNSCREEN_SPF30;
 import static net.serenitybdd.screenplay.actors.OnStage.theActorInTheSpotlight;
 
 public class buyingCheapestSunscreen {
-    public static ArrayList<String> unrefinedPriceList( )
+    public static ArrayList<String> unrefinedPriceList(Target T)
     {
         ArrayList<String> prices = new ArrayList<>();
-        List<WebElementFacade> sunscreens = SUNSCREEN_SPF30.resolveAllFor(theActorInTheSpotlight());
+        List<WebElementFacade> sunscreens = T.resolveAllFor(theActorInTheSpotlight());
         sunscreens.forEach(element -> {
             prices.add(element.getTextValue());
         });

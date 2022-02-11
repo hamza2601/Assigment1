@@ -13,6 +13,8 @@ import net.serenitybdd.screenplay.conditions.Check;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import static BuySunscreen.UserInterface.Targets.SUNSCREEN_SPF30;
+import static BuySunscreen.UserInterface.Targets.SUNSCREEN_SPF50;
 import static BuySunscreen.actions.buyingCheapestSunscreen.*;
 import static BuySunscreen.actions.intExtractionFromString.extractNumerals;
 
@@ -82,7 +84,7 @@ public class TempCheckSteps {
 
           System.out.println("We're shopping for sunscreens!");
           ArrayList<String> prices = new ArrayList<>();
-          prices =  unrefinedPriceList(); //we get the prices, but not in numerics only
+          prices =  unrefinedPriceList(SUNSCREEN_SPF30); //we get the prices, but not in numerics only
 
 
 
@@ -97,7 +99,19 @@ public class TempCheckSteps {
           System.out.println(buttonLocator);
           theActorInTheSpotlight().attemptsTo(buyCheapestSunscreen.buySunscreen(buttonLocator));
           System.out.println("Element clicked on");
+//          theActorInTheSpotlight().attemptsTo(buyCheapestSunscreen.clickonCart());
+
+          //now we try to do the same prcedure for SPF-50
+          ArrayList<String> pricesSPF50 = new ArrayList<>();
+          pricesSPF50 = unrefinedPriceList(SUNSCREEN_SPF50);
+          String [] PricesSPF50;
+          PricesSPF50 = refinedPrices(pricesSPF50);
+          String lowestPriceSPF50 = lowestPrice(PricesSPF50);
+          String locator_SPF50 = locator(lowestPriceSPF50);
+          System.out.println("locator for cheapest spf50 is: " + locator_SPF50  );
+          theActorInTheSpotlight().attemptsTo(buyCheapestSunscreen.buySunscreen(locator_SPF50));
           theActorInTheSpotlight().attemptsTo(buyCheapestSunscreen.clickonCart());
+
 
       }
       else if (temperature < 19)
