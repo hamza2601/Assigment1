@@ -1,5 +1,6 @@
 package com.Assignment1.steps;
 
+import BuyMoisturizer.Tasks.buyMoisturizer;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -13,6 +14,9 @@ import net.serenitybdd.screenplay.conditions.Check;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import static BuyMoisturizer.UserInterface.Targets_Moisturizers.ALMOND_MOISTURIZERS;
+import static BuyMoisturizer.UserInterface.Targets_Moisturizers.ALOE_MOISTURIZERS;
+import static BuyMoisturizer.actions.buyCheapestMoisturizer.*;
 import static BuySunscreen.UserInterface.Targets.SUNSCREEN_SPF30;
 import static BuySunscreen.UserInterface.Targets.SUNSCREEN_SPF50;
 import static BuySunscreen.actions.buyingCheapestSunscreen.*;
@@ -117,7 +121,26 @@ public class TempCheckSteps {
       else if (temperature < 19)
       {
           theActorInTheSpotlight().attemptsTo(tasks.ClickOnBuyMoisturizer());
+          ArrayList<String> pricesMoisturizers = unrefinedListM(ALOE_MOISTURIZERS);
+          int lM = pricesMoisturizers.size();
+          String[] PricesM;
+          PricesM = refinedPricesM(pricesMoisturizers);
+          String cheapPriceM =lowestPriceM(PricesM);
+          String buttonLocatorM = locatorM(cheapPriceM);
+          theActorInTheSpotlight().attemptsTo(buyMoisturizer.purchaseMoisturizer(buttonLocatorM));
+
+
+
           System.out.println("******************Always keep your skin moisturized in winters!!***************");
+
+          ArrayList<String> pricesAlmond = new ArrayList<>();
+          pricesAlmond = unrefinedListM(ALMOND_MOISTURIZERS);
+          String[] PricesAlmond;
+          PricesAlmond = refinedPricesM(pricesAlmond);
+          String lowPriceAlmond = lowestPriceM(PricesAlmond);
+          String locatorAlmond = locatorM(lowPriceAlmond);
+          theActorInTheSpotlight().attemptsTo(buyMoisturizer.purchaseMoisturizer(locatorAlmond));
+          theActorInTheSpotlight().attemptsTo(buyMoisturizer.clickonCartM());
       }
 
     }
