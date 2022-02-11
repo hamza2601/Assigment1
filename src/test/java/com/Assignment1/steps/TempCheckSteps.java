@@ -37,30 +37,29 @@ public class TempCheckSteps {
     @Then("actor will either buy sunscreen or moisturizer")
     public void actor_buys_sunscreen_or_moisturizer() throws InterruptedException {
 
-        System.out.println(temp);
-        theActorInTheSpotlight().attemptsTo(tasks.ClickOnBuySunScreen());
-        ArrayList<String> prices;
-        prices =  unrefinedPriceList(); //we get the prices, but not in numerics only
-
-
-
-        int l= prices.size();  //getting size of the prices array
-        String[] Prices;
-        Prices = refinedPrices(prices);
-        String lowest_Price = lowestPrice(Prices);
-
-
-
-        String buttonLocator = locator(lowest_Price);
-        System.out.println(buttonLocator);
-        theActorInTheSpotlight().attemptsTo(buyCheapestSunscreen.buySunscreen(buttonLocator));
-        System.out.println("Element clicked on");
-        theActorInTheSpotlight().attemptsTo(buyCheapestSunscreen.clickonCart());
+//        System.out.println(temp);
+//        theActorInTheSpotlight().attemptsTo(tasks.ClickOnBuySunScreen());
+//        ArrayList<String> prices;
+//        prices =  unrefinedPriceList(); //we get the prices, but not in numerics only
+//
+//
+//
+//        int l= prices.size();  //getting size of the prices array
+//        String[] Prices;
+//        Prices = refinedPrices(prices);
+//        String lowest_Price = lowestPrice(Prices);
+//
+//
+//
+//        String buttonLocator = locator(lowest_Price);
+//        System.out.println(buttonLocator);
+//        theActorInTheSpotlight().attemptsTo(buyCheapestSunscreen.buySunscreen(buttonLocator));
+//        System.out.println("Element clicked on");
+//        theActorInTheSpotlight().attemptsTo(buyCheapestSunscreen.clickonCart());
 
 
 ////
        int temperature =  extractNumerals(temp);
-////        String lowerT = "19 °C"
 //       if( temperature < 19)
 //       {
 //           theActorInTheSpotlight().attemptsTo(tasks.ClickOnBuyMoisturizer());
@@ -77,35 +76,35 @@ public class TempCheckSteps {
 //      Check.whether(temperature>34).andIfSo(tasks.ClickOnBuySunScreen());
 //      String current_Page = theActorInTheSpotlight().asksFor(questions.NameOfCurrentPage());
 //        System.out.println(current_Page);
-//      if(temperature >34)
-//      {
-       // theActorInTheSpotlight().attemptsTo(tasks.ClickOnBuySunScreen());
+      if(temperature >34)
+      {
+        theActorInTheSpotlight().attemptsTo(tasks.ClickOnBuySunScreen());
 
-//          System.out.println("We're shopping for sunscreens!");
-//          ArrayList<String> prices = new ArrayList<>();
-//          prices =  unrefinedPriceList(); //we get the prices, but not in numerics only
-//
-//
-//
-//          int l= prices.size();  //getting size of the prices array
-//          String[] Prices;
-//          Prices = refinedPrices(prices);
-//          String lowest_Price = lowestPrice(Prices);
-//
-//
-//
-//          String buttonLocator = locator(lowest_Price);
-//          System.out.println(buttonLocator);
-//          theActorInTheSpotlight().attemptsTo(buyCheapestSunscreen.buySunscreen(buttonLocator));
-//          System.out.println("Element clicked on");
-//          theActorInTheSpotlight().attemptsTo(buyCheapestSunscreen.clickonCart());
-//
-//      }
-//      else if (temperature < 19)
-//      {
-//          theActorInTheSpotlight().attemptsTo(tasks.ClickOnBuyMoisturizer());
-//          System.out.println("******************Always keep your skin moisturized in winters!!***************");
-//      }
+          System.out.println("We're shopping for sunscreens!");
+          ArrayList<String> prices = new ArrayList<>();
+          prices =  unrefinedPriceList(); //we get the prices, but not in numerics only
+
+
+
+          int l= prices.size();  //getting size of the prices array
+          String[] Prices;
+          Prices = refinedPrices(prices);
+          String lowest_Price = lowestPrice(Prices);
+
+
+
+          String buttonLocator = locator(lowest_Price);
+          System.out.println(buttonLocator);
+          theActorInTheSpotlight().attemptsTo(buyCheapestSunscreen.buySunscreen(buttonLocator));
+          System.out.println("Element clicked on");
+          theActorInTheSpotlight().attemptsTo(buyCheapestSunscreen.clickonCart());
+
+      }
+      else if (temperature < 19)
+      {
+          theActorInTheSpotlight().attemptsTo(tasks.ClickOnBuyMoisturizer());
+          System.out.println("******************Always keep your skin moisturized in winters!!***************");
+      }
 
     }
 }
