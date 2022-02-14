@@ -22,6 +22,9 @@ import static BuySunscreen.UserInterface.Targets.SUNSCREEN_SPF50;
 import static BuySunscreen.actions.buyingCheapestSunscreen.*;
 import static BuySunscreen.actions.intExtractionFromString.extractNumerals;
 
+import static checkoutCart.Actions.FieldFillingIn.fillInFields;
+import static checkoutCart.Actions.checkoutActions.*;
+import static checkoutCart.Tasks.tasksCart.clickOnPayWithCard;
 import static net.serenitybdd.screenplay.actors.OnStage.theActorInTheSpotlight;
 
 public class TempCheckSteps {
@@ -43,50 +46,18 @@ public class TempCheckSteps {
     @Then("actor will either buy sunscreen or moisturizer")
     public void actor_buys_sunscreen_or_moisturizer() throws InterruptedException {
 
-//        System.out.println(temp);
-//        theActorInTheSpotlight().attemptsTo(tasks.ClickOnBuySunScreen());
-//        ArrayList<String> prices;
-//        prices =  unrefinedPriceList(); //we get the prices, but not in numerics only
-//
-//
-//
-//        int l= prices.size();  //getting size of the prices array
-//        String[] Prices;
-//        Prices = refinedPrices(prices);
-//        String lowest_Price = lowestPrice(Prices);
-//
-//
-//
-//        String buttonLocator = locator(lowest_Price);
-//        System.out.println(buttonLocator);
-//        theActorInTheSpotlight().attemptsTo(buyCheapestSunscreen.buySunscreen(buttonLocator));
-//        System.out.println("Element clicked on");
-//        theActorInTheSpotlight().attemptsTo(buyCheapestSunscreen.clickonCart());
 
 
-////
+
+
        int temperature =  extractNumerals(temp);
-//       if( temperature < 19)
-//       {
-//           theActorInTheSpotlight().attemptsTo(tasks.ClickOnBuyMoisturizer());
-//
-//
-//       }
-//       if(temperature > 34)
-//       {
-//           theActorInTheSpotlight().attemptsTo(tasks.ClickOnBuySunScreen());
-//
-//
-//       }
-//      Check.whether(temperature<19).andIfSo(tasks.ClickOnBuyMoisturizer());
-//      Check.whether(temperature>34).andIfSo(tasks.ClickOnBuySunScreen());
-//      String current_Page = theActorInTheSpotlight().asksFor(questions.NameOfCurrentPage());
-//        System.out.println(current_Page);
+       temperature = 49;
+
       if(temperature >34)
       {
         theActorInTheSpotlight().attemptsTo(tasks.ClickOnBuySunScreen());
 
-          System.out.println("We're shopping for sunscreens!");
+
           ArrayList<String> prices = new ArrayList<>();
           prices =  unrefinedPriceList(SUNSCREEN_SPF30); //we get the prices, but not in numerics only
 
@@ -96,6 +67,7 @@ public class TempCheckSteps {
           String[] Prices;
           Prices = refinedPrices(prices);
           String lowest_Price = lowestPrice(Prices);
+          String SPF30_NAME = cheapestMoisturizerName(lowest_Price);
 
 
 
@@ -103,7 +75,7 @@ public class TempCheckSteps {
           System.out.println(buttonLocator);
           theActorInTheSpotlight().attemptsTo(buyCheapestSunscreen.buySunscreen(buttonLocator));
           System.out.println("Element clicked on");
-//          theActorInTheSpotlight().attemptsTo(buyCheapestSunscreen.clickonCart());
+
 
           //now we try to do the same prcedure for SPF-50
           ArrayList<String> pricesSPF50 = new ArrayList<>();
@@ -111,10 +83,40 @@ public class TempCheckSteps {
           String [] PricesSPF50;
           PricesSPF50 = refinedPrices(pricesSPF50);
           String lowestPriceSPF50 = lowestPrice(PricesSPF50);
+          String SPF_50NAME = cheapestMoisturizerName(lowestPriceSPF50);
           String locator_SPF50 = locator(lowestPriceSPF50);
           System.out.println("locator for cheapest spf50 is: " + locator_SPF50  );
           theActorInTheSpotlight().attemptsTo(buyCheapestSunscreen.buySunscreen(locator_SPF50));
           theActorInTheSpotlight().attemptsTo(buyCheapestSunscreen.clickonCart());
+
+
+          //now we enter the final test case
+          boolean nameVerify = productNameVerificationSunscreen(SPF30_NAME,SPF_50NAME);
+          boolean priceVerify = productPriceVerification(lowest_Price,lowestPriceSPF50);
+          boolean totalVerification = totalSumVerification();
+          if(nameVerify && priceVerify && totalVerification)
+          {
+//              Thread.sleep(570);
+              theActorInTheSpotlight().attemptsTo(clickOnPayWithCard());
+              fillInFields();
+              Thread.sleep(1000);
+
+              theActorInTheSpotlight().attemptsTo(clickOnPayButton());
+              Thread.sleep(5000);
+              if(verifySuccessMesaage())
+                  System.out.println("Congrats! Purchase was successful");
+              else
+                  System.out.println("Sorry :( Payment failed");
+
+
+
+          }
+          else
+          {
+              System.out.println("Sorry! Cart page had some issues, try again");
+          }
+
+
 
 
       }

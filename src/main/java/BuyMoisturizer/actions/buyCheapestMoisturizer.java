@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static checkoutCart.Questions.cartQuestions.nameofProductIs;
 import static net.serenitybdd.screenplay.actors.OnStage.theActorInTheSpotlight;
 
 public class buyCheapestMoisturizer {
@@ -69,6 +70,16 @@ public class buyCheapestMoisturizer {
     {
         String locator = "//p[contains(text(),'" + leastPrice + "')]/following-sibling::button";
         return locator;
+    }
+
+    public static String cheapestMoisturizerName(String leastPrice)
+    {
+        String locator = "//p[contains(text(),'" + leastPrice + "')]/preceding-sibling::p";
+        String name = theActorInTheSpotlight().asksFor(nameofProductIs(locator));
+        System.out.println("Name is : "+name);
+        return name;
+
+
     }
 
 
